@@ -13,6 +13,9 @@
 #include <sstream>
 
 using namespace std;
+void executeCommandsFromFile(const string& filename);
+void executeCommandsFromStdin();
+void processCommand(const string& command);
 
 // ExecutionContext class holds the state of the calculator
 class ExecutionContext {
@@ -87,6 +90,9 @@ public:
             throw runtime_error("SQRT from an empty stack.");  // Error if stack is empty
         }
         double operand = context.operandStack.top();
+        if (operand < 0) {
+            throw runtime_error("The number under the SQRT must not be negative");  //  SQRT of a negative number
+        }
         context.operandStack.pop();
         context.operandStack.push(sqrt(operand));  // Push the square root back onto the stack
     }
@@ -148,7 +154,19 @@ public:
         context.operandStack.pop();
         double operand1 = context.operandStack.top();
         context.operandStack.pop();
+        if (operand2 == 0) {
+             throw runtime_error("An attempt to divide by 0.");  // Error when dividing by 0
+        }
         context.operandStack.push(operand1 / operand2);  // Push the result back onto the stack
+    }
+};
+
+// CommentCommand skips a line starting with '#'
+class NumCommand : public Command {
+public:
+    void execute(ExecutionContext& context) const override {
+        (void)context;  // Suppress unused parameter warning
+        // This command does nothing, as it is just meant to skip comments
     }
 };
 
@@ -184,10 +202,13 @@ public:
             return make_unique<MulCommand>();  // Create MulCommand
         } else if (commandName == "/"){
             return make_unique<DivCommand>();  // Create DivCommand
+        } else if (commandName == "#") { 
+            return make_unique<NumCommand>(); // Create NumCommand   
         } else {
             throw invalid_argument("Unknown command.");  // Error for unknown command
         }
     }
 };
+
 
 #endif

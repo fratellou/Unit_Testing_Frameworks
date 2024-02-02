@@ -1,10 +1,6 @@
 #include "calculator.h"  
 using namespace std;
 
-void processCommand(const string& command); // Function to process a command string
-void executeCommandsFromFile(const string& filename); // Function to execute commands from a file
-void executeCommandsFromStdin(); // Function to execute commands from standard input
-
 int main(int argc, char* argv[]) {
     if (argc == 2) {
         executeCommandsFromFile(argv[1]);  // Execute commands from a file if a filename is provided as a command line argument

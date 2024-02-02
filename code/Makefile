@@ -1,21 +1,19 @@
 CFLAGS=-Wall -Wextra -Werror
+TEST=-lgtest -lgmock -pthread
 EXIT=./objects/
 
-all:calculator
+all:calculator testing
 
 calculator: calculator.o
 	g++ $(CFLAGS) $(EXIT)calculator.o -o calculator
 
-testing: testing.o
-	g++ $(CFLAGS) $(EXIT)testing.o -o testing
+testing: 
+	g++ ./tests/testing.cpp -o ./tests/testing $(TEST)
 
 calculator.o:
 	g++ $(CFLAGS) -c calculator.cpp -o $(EXIT)calculator.o
 
-testing.o:
-	g++ $(CFLAGS) -c testing.cpp -o $(EXIT)testing.o
-
 clean: 
-	rm -rf $(EXIT)*.o calculator testing
+	rm -rf $(EXIT)*.o calculator ./tests/testing
 
 rebuild:clean all

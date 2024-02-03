@@ -170,45 +170,152 @@ public:
     }
 };
 
-// CommandFactory creates instances of specific commands based on the command name
+// Abstract Factory class
 class CommandFactory {
 public:
+    virtual unique_ptr<Command> createCommand(const vector<string>& args) const = 0;
+    virtual ~CommandFactory() = default;
+};
+
+// Concrete factory for PushCommand
+class PushCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        if (args.size() != 1) {
+            throw invalid_argument("PUSH command requires one argument.");
+        }
+        if ((args[0][0] > 64 && args[0][0] < 91) || (args[0][0] > 96 && args[0][0] < 123)) {
+            return make_unique<PushCommand>(executionContext.definedParameters[args[0]]);
+        }
+        return make_unique<PushCommand>(stod(args[0]));  // Create PushCommand with the specified value
+    }
+};
+
+// Concrete factory for PopCommand
+class PopCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<PopCommand>();
+    }
+};
+
+// Concrete factory for PrintCommand
+class PrintCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<PrintCommand>();
+    }
+};
+
+// Concrete factory for DefineCommand
+class DefineCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        if (args.size() == 2) {
+            return make_unique<DefineCommand>(args[0], stod(args[1]));
+        } else if (args.size() == 1) {
+            return make_unique<DefineCommand>(args[0], 0.0);
+        } else {
+            throw invalid_argument("DEFINE command requires one or two arguments.");
+        }
+    }
+};
+
+// Concrete factory for SqrtCommand
+class SqrtCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<SqrtCommand>();
+    }
+};
+
+// Concrete factory for AddCommand
+class AddCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<AddCommand>();
+    }
+};
+
+// Concrete factory for SubCommand
+class SubCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<SubCommand>();
+    }
+};
+
+// Concrete factory for MulCommand
+class MulCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<MulCommand>();
+    }
+};
+
+// Concrete factory for DivCommand
+class DivCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<DivCommand>();
+    }
+};
+
+// Concrete factory for NumCommand
+class NumCommandFactory : public CommandFactory {
+public:
+    unique_ptr<Command> createCommand(const vector<string>& args) const override {
+        (void)args;  // Suppress unused parameter warning
+        return make_unique<NumCommand>();
+    }
+};
+
+// Factory creates instances of specific commands based on the command name
+class Factory {
+public:
     static unique_ptr<Command> createCommand(const string& commandName, const vector<string>& args) {
+        // Use the appropriate factory based on commandName
         if (commandName == "PUSH") {
-            if (args.size() != 1) {
-                throw invalid_argument("PUSH command requires one argument.");
-            }
-            if ((args[0][0] > 64 && args[0][0] < 91) || (args[0][0] > 96 && args[0][0] < 123)) return make_unique<PushCommand>(executionContext.definedParameters[args[0]]);
-            return make_unique<PushCommand>(stod(args[0]));  // Create PushCommand with the specified value
+            PushCommandFactory factory;
+            return factory.createCommand(args);  // Create PushCommand with the specified value
         } else if (commandName == "POP") {
-            return make_unique<PopCommand>();  // Create PopCommand
+            PopCommandFactory factory;
+            return factory.createCommand(args);  // Create PopCommand
         } else if (commandName == "PRINT") {
-            return make_unique<PrintCommand>();  // Create PrintCommand
+            PrintCommandFactory factory;
+            return factory.createCommand(args);  // Create PrintCommand
         } else if (commandName == "DEFINE") {
-            if (args.size() == 2) {
-                return make_unique<DefineCommand>(args[0], stod(args[1]));  // Create DefineCommand with name and value
-            } else if (args.size() == 1) {
-                return make_unique<DefineCommand>(args[0], 0.0);  // Default value if no second argument
-            } else {
-                throw invalid_argument("DEFINE command requires one or two arguments.");  // Error if incorrect number of arguments
-            }
+            DefineCommandFactory factory;
+            return factory.createCommand(args);
         } else if (commandName == "SQRT") {
-            return make_unique<SqrtCommand>();  // Create SqrtCommand
+            SqrtCommandFactory factory;
+            return factory.createCommand(args);  // Create SqrtCommand
         } else if (commandName == "+") {
-            return make_unique<AddCommand>();  // Create AddCommand
+            AddCommandFactory factory;
+            return factory.createCommand(args);  // Create AddCommand
         } else if (commandName == "-"){
-            return make_unique<SubCommand>();  // Create SubCommand
+            SubCommandFactory factory;
+            return factory.createCommand(args);  // Create SubCommand
         } else if (commandName == "*"){
-            return make_unique<MulCommand>();  // Create MulCommand
+            MulCommandFactory factory;
+            return factory.createCommand(args);  // Create MulCommand
         } else if (commandName == "/"){
-            return make_unique<DivCommand>();  // Create DivCommand
+            DivCommandFactory factory;
+            return factory.createCommand(args);  // Create DivCommand
         } else if (commandName == "#") { 
-            return make_unique<NumCommand>(); // Create NumCommand   
+            NumCommandFactory factory;
+            return factory.createCommand(args); // Create NumCommand   
         } else {
             throw invalid_argument("Unknown command.");  // Error for unknown command
         }
     }
 };
-
 
 #endif

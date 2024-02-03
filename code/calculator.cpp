@@ -50,7 +50,7 @@ void processCommand(const string& command) {
 
     if (!tokens.empty()) {
         try {
-            unique_ptr<Command> cmd = CommandFactory::createCommand(tokens[0], vector<string>(tokens.begin() + 1, tokens.end()));
+            unique_ptr<Command> cmd = Factory::createCommand(tokens[0], vector<string>(tokens.begin() + 1, tokens.end()));
             cmd->execute(executionContext);  // Execute the command with the global ExecutionContext
         } catch (const exception& e) {
             cerr << "Error: " << e.what() << std::endl;  // Print error message if an exception occurs

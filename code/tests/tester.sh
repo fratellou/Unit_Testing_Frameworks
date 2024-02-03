@@ -27,7 +27,6 @@ else
 fi
 rm real_result_file_2.txt calc_file_2.txt
 
-../calculator test_file_3 >> calc_file_3.txt
 echo -n "\nTest file 3:\nCalculator result: "
 ../calculator test_file_3
 ../calculator test_file_3 > calc_file_3.txt 2>&1

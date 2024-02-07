@@ -3,13 +3,13 @@
 1. Write a stack calculator that takes as a command-line argument the name of the file containing the commands. Implement a set of unit tests covering the functionality of the calculator. 
 2. Implement a set of unit tests covering the functionality https://github.com/fratellou/NoSQL-database using on Google Test. 
 
-## Table of Contents
+## Contents
 
-1. [Task 1] (#task-1) \
-    1.1 [Task 1. Theory](#task-1-information) \
+1. [Task 1](#task-1) \
+    1.1 [Task 1. Information](#task-1-information) \
     1.2 [Task 1. Code](#task-1-code)
-2. [Task 2] (#task-2) \
-    2.1 [Task 2. Theory](#task-2-information) \
+2. [Task 2](#task-2) \
+    2.1 [Task 2. Information](#task-2-information) \
     2.2 [Task 2. Code](#task-2-code)
 
 # Task 1
@@ -100,7 +100,7 @@ The `ExecutionContext` class contains the state of the calculator:
 - `operandStack` - stack for storing operands;
 - `definedParameters` display for storing user parameters.
 
-The 'Command` class is an abstract base class representing a calculator command. It declares a purely virtual function `execute()`, which the derived classes must implement. The destructor is declared virtual in order to properly release resources.
+The `Command` class is an abstract base class representing a calculator command. It declares a purely virtual function `execute()`, which the derived classes must implement. The destructor is declared virtual in order to properly release resources.
 
 The `PushCommand' class represents a command to add a value to the operand stack. Takes a value as a parameter and implements the `execute()` function to add a value to the operand stack.
 
@@ -108,7 +108,7 @@ The `PopCommand` class represents a command to extract a value from the operand 
 
 The `PrintCommand` class represents a command to output the top value of the operand stack. Implements the `execute()` function to check for the presence of elements in the stack and output the upper value.
 
-The 'DefineCommand` class represents a command to define a parameter with a given value. Accepts the parameter name and its value, implements the `execute()` function to add the parameter to the 'definedParameters` display.
+The `DefineCommand` class represents a command to define a parameter with a given value. Accepts the parameter name and its value, implements the `execute()` function to add the parameter to the 'definedParameters` display.
 
 The `SqrtCommand` class represents a command to calculate the square root from the top value of the operand stack. Checks for the presence of elements in the stack and the negativity of the operand, implements the `execute()` function to perform the square root extraction operation.
 
@@ -120,9 +120,9 @@ The `MulCommand` class represents a command for multiplying the top two values o
 
 The `DivCommand` class represents a command to divide the top two values of the operand stack. Checks for an insufficient number of operands and division by zero, implements the `execute()` function to perform division.
 
-The 'NumCommand` class provides a command to skip a line starting with '#'. It does not do anything, it serves as a placeholder for comments.
+The `NumCommand` class provides a command to skip a line starting with '#'. It does not do anything, it serves as a placeholder for comments.
 
-The 'CommandFactory` class is an abstract base class that represents a factory for creating command instances. It declares a purely virtual function `createCommand()`, which the derived classes must implement.
+The `CommandFactory` class is an abstract base class that represents a factory for creating command instances. It declares a purely virtual function `createCommand()`, which the derived classes must implement.
 
 The `PushCommandFactory` class is a specific factory for creating instances of `PushCommand`.
 
@@ -175,53 +175,90 @@ The full explanation of the structures is in the repository https://github.com/f
 ## Task 2. Code
 
 Array class:
+
 `add()`- adds an element to the end of the array.
+
 `insert()` - inserts an element into the specified array index.
+
 `removeLast()` - removes the last element from the array.
+
 `removeAtIndex()` - removes an element at the specified index from the array.
+
 `get()` - gets the value at the specified index in the array.
+
 `change()` - changes the value at the specified index in the array.
+
 `search()` - searches for an element in the array and returns its index.
 
 Double Linked List Class:
+
 `addToBeginning()` - adds an item to the top of the list.
+
 `addToEnd()` - adds an item to the end of the list.
+
 `removeByValue()` - removes the first occurrence of the specified value from the list.
+
 `removeFromEnd()` - removes the last item from the list.
+
 `insertAtIndex()` - inserts an element at the specified index in the list.
+
 `removeFromBeginning()` - removes the first item from the list.
+
 `removeAtIndex()` - removes an item at the specified index from the list.
+
 `search()` - searches for a value in the list and returns its index.
 
 Hash Table class:
+
 `set()` - inserts or updates a key-value pair into a hash table.
+
 `del()` - removes the key-value pair from the hash table.
+
 `get()` - returns the value associated with the specified key in the hash table.
 
 Linked List Class:
+
 `add()` - adds an item to the top of the list.
+
 `insert()` - inserts an element at the specified index in the list.
+
 `remove()` - removes the first item from the list.
+
 `removeByIndex()` - removes an item at the specified index from the list.
+
 `removeByValue()` - removes the first occurrence of the specified value from the list.
+
 `search()` - searches for a value in the list and returns its index.
+
 `print()` - displays the list items on the screen.
 
+
 Queue class:
+
 `push()` - adds an item to the end of the queue.
+
 `pop()` - deletes and returns the first item from the queue.
 
 Stack Class:
+
 `push()` - adds an element to the top of the stack.
+
 `pop()` - removes and returns an element from the top of the stack.
 
 The Tree class:
+
 `add()` - adds a node with the specified key to the tree.
+
 `search()` - searches for a node with the specified key in the tree.
+
 `succ()` - returns the successor of the node in the tree.
+
 `min()` - returns the node with the minimum key in the tree.
+
 `del()` - removes the node with the specified key from the tree.
+
 `transplant()` - replaces one subtree with another in the tree.
+
 `print()` - displays the contents of the tree on the screen in a structured format.
 
 >

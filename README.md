@@ -102,7 +102,7 @@ The `ExecutionContext` class contains the state of the calculator:
 
 The `Command` class is an abstract base class representing a calculator command. It declares a purely virtual function `execute()`, which the derived classes must implement. The destructor is declared virtual in order to properly release resources.
 
-The `PushCommand' class represents a command to add a value to the operand stack. Takes a value as a parameter and implements the `execute()` function to add a value to the operand stack.
+The `PushCommand` class represents a command to add a value to the operand stack. Takes a value as a parameter and implements the `execute()` function to add a value to the operand stack.
 
 The `PopCommand` class represents a command to extract a value from the operand stack. Implements the `execute()` function to check for the presence of elements in the stack and extract the top value.
 
